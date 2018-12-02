@@ -1,0 +1,12 @@
+version: "2"
+services:
+  teamtrack:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - .:/go/src/github.com/goforbroke1006
+    container_name: teamtrack
+    ports:
+      - 8800:8081

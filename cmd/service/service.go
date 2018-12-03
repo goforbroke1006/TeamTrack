@@ -3,25 +3,30 @@ package service
 import (
 	"flag"
 	"fmt"
-	endpoint1 "github.com/go-kit/kit/endpoint"
-	log "github.com/go-kit/kit/log"
-	prometheus "github.com/go-kit/kit/metrics/prometheus"
-	endpoint "github.com/goforbroke1006/teamtrack/pkg/endpoint"
-	http "github.com/goforbroke1006/teamtrack/pkg/http"
-	service "github.com/goforbroke1006/teamtrack/pkg/service"
-	lightsteptracergo "github.com/lightstep/lightstep-tracer-go"
-	group "github.com/oklog/oklog/pkg/group"
-	opentracinggo "github.com/opentracing/opentracing-go"
-	zipkingoopentracing "github.com/openzipkin/zipkin-go-opentracing"
-	prometheus1 "github.com/prometheus/client_golang/prometheus"
-	promhttp "github.com/prometheus/client_golang/prometheus/promhttp"
 	"net"
 	http1 "net/http"
 	"os"
 	"os/signal"
-	appdash "sourcegraph.com/sourcegraph/appdash"
-	opentracing "sourcegraph.com/sourcegraph/appdash/opentracing"
 	"syscall"
+
+	endpoint1 "github.com/go-kit/kit/endpoint"
+	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/metrics/prometheus"
+	"github.com/goforbroke1006/teamtrack/pkg/endpoint"
+	"github.com/goforbroke1006/teamtrack/pkg/http"
+	"github.com/goforbroke1006/teamtrack/pkg/service"
+	"github.com/jinzhu/gorm"
+	lightsteptracergo "github.com/lightstep/lightstep-tracer-go"
+	"github.com/oklog/oklog/pkg/group"
+	opentracinggo "github.com/opentracing/opentracing-go"
+	zipkingoopentracing "github.com/openzipkin/zipkin-go-opentracing"
+	prometheus1 "github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"sourcegraph.com/sourcegraph/appdash"
+	"sourcegraph.com/sourcegraph/appdash/opentracing"
+
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/lib/pq"
 )
 
 var tracer opentracinggo.Tracer
@@ -79,7 +84,15 @@ func Run() {
 		tracer = opentracinggo.GlobalTracer()
 	}
 
-	svc := service.New(getServiceMiddleware(logger))
+	db, err := gorm.Open("postgres",
+		"host=localhost port=5432 user=root dbname=teamtrack_db password=123456")
+	if nil != err {
+		logger.Log("err", err)
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	svc := service.New(getServiceMiddleware(logger), db)
 	eps := endpoint.New(svc, getEndpointMiddleware(logger))
 	g := createService(eps)
 	initMetricsEndpoint(g)

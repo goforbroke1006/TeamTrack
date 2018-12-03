@@ -1,40 +1,57 @@
 package service
 
-import "context"
+import (
+	"context"
+
+	"github.com/jinzhu/gorm"
+)
+
+type MemberData struct {
+	memberId string
+	lat      float32
+	lng      float32
+}
 
 // TeamtrackService describes the service.
 type TeamtrackService interface {
-	// Add your methods here
-	Foo(ctx context.Context, s string) (rs string, err error)
-	Bar(ctx context.Context, s string) error
-	Wildfowl(ctx context.Context, s string) (rs string, err error)
+	CreateTeam(ctx context.Context, id, name string) (res bool, err error)
+	JoinTeam(ctx context.Context, teamId, memberId, deviceInfo string) (res bool, err error)
+	SetPosition(ctx context.Context, data MemberData) (res bool, err error)
+	GetMatesPositions(ctx context.Context, memberId string) (res []MemberData, err error)
 }
-type basicTeamtrackService struct{}
-
-func (b *basicTeamtrackService) Foo(ctx context.Context, s string) (rs string, err error) {
-	// TODO implement the business logic of Foo
-	return rs, err
-}
-func (b *basicTeamtrackService) Bar(ctx context.Context, s string) (e0 error) {
-	// TODO implement the business logic of Bar
-	return e0
-}
-func (b *basicTeamtrackService) Wildfowl(ctx context.Context, s string) (rs string, err error) {
-	// TODO implement the business logic of Wildfowl
-	rs = "Hello!"
-	return rs, err
+type basicTeamtrackService struct {
+	db *gorm.DB
 }
 
 // NewBasicTeamtrackService returns a naive, stateless implementation of TeamtrackService.
-func NewBasicTeamtrackService() TeamtrackService {
-	return &basicTeamtrackService{}
+func NewBasicTeamtrackService(db *gorm.DB) TeamtrackService {
+	return &basicTeamtrackService{
+		db: db,
+	}
 }
 
 // New returns a TeamtrackService with all of the expected middleware wired in.
-func New(middleware []Middleware) TeamtrackService {
-	var svc TeamtrackService = NewBasicTeamtrackService()
+func New(middleware []Middleware, db *gorm.DB) TeamtrackService {
+	var svc TeamtrackService = NewBasicTeamtrackService(db)
 	for _, m := range middleware {
 		svc = m(svc)
 	}
 	return svc
+}
+
+func (b *basicTeamtrackService) CreateTeam(ctx context.Context, id string, name string) (res bool, err error) {
+	// TODO implement the business logic of CreateTeam
+	return res, err
+}
+func (b *basicTeamtrackService) JoinTeam(ctx context.Context, teamId string, memberId string, deviceInfo string) (res bool, err error) {
+	// TODO implement the business logic of JoinTeam
+	return res, err
+}
+func (b *basicTeamtrackService) SetPosition(ctx context.Context, info MemberData) (res bool, err error) {
+	// TODO implement the business logic of SetPosition
+	return res, err
+}
+func (b *basicTeamtrackService) GetMatesPositions(ctx context.Context, memberId string) (res []MemberData, err error) {
+	// TODO implement the business logic of GetMatesPositions
+	return res, err
 }

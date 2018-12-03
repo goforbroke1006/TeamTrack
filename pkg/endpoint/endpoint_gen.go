@@ -10,27 +10,32 @@ import (
 // meant to be used as a helper struct, to collect all of the endpoints into a
 // single parameter.
 type Endpoints struct {
-	FooEndpoint      endpoint.Endpoint
-	BarEndpoint      endpoint.Endpoint
-	WildfowlEndpoint endpoint.Endpoint
+	CreateTeamEndpoint        endpoint.Endpoint
+	JoinTeamEndpoint          endpoint.Endpoint
+	SetPositionEndpoint       endpoint.Endpoint
+	GetMatesPositionsEndpoint endpoint.Endpoint
 }
 
 // New returns a Endpoints struct that wraps the provided service, and wires in all of the
 // expected endpoint middlewares
 func New(s service.TeamtrackService, mdw map[string][]endpoint.Middleware) Endpoints {
 	eps := Endpoints{
-		BarEndpoint:      MakeBarEndpoint(s),
-		FooEndpoint:      MakeFooEndpoint(s),
-		WildfowlEndpoint: MakeWildfowlEndpoint(s),
+		CreateTeamEndpoint:        MakeCreateTeamEndpoint(s),
+		GetMatesPositionsEndpoint: MakeGetMatesPositionsEndpoint(s),
+		JoinTeamEndpoint:          MakeJoinTeamEndpoint(s),
+		SetPositionEndpoint:       MakeSetPositionEndpoint(s),
 	}
-	for _, m := range mdw["Foo"] {
-		eps.FooEndpoint = m(eps.FooEndpoint)
+	for _, m := range mdw["CreateTeam"] {
+		eps.CreateTeamEndpoint = m(eps.CreateTeamEndpoint)
 	}
-	for _, m := range mdw["Bar"] {
-		eps.BarEndpoint = m(eps.BarEndpoint)
+	for _, m := range mdw["JoinTeam"] {
+		eps.JoinTeamEndpoint = m(eps.JoinTeamEndpoint)
 	}
-	for _, m := range mdw["Wildfowl"] {
-		eps.WildfowlEndpoint = m(eps.WildfowlEndpoint)
+	for _, m := range mdw["SetPosition"] {
+		eps.SetPositionEndpoint = m(eps.SetPositionEndpoint)
+	}
+	for _, m := range mdw["GetMatesPositions"] {
+		eps.GetMatesPositionsEndpoint = m(eps.GetMatesPositionsEndpoint)
 	}
 	return eps
 }

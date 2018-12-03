@@ -10,3 +10,10 @@ services:
     container_name: teamtrack
     ports:
       - 8800:8081
+
+  db:
+    image: postgres:11.1
+    environment:
+      POSTGRES_DB: teamtrack_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456

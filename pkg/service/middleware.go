@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+
 	log "github.com/go-kit/kit/log"
 )
 
@@ -22,21 +23,28 @@ func LoggingMiddleware(logger log.Logger) Middleware {
 
 }
 
-func (l loggingMiddleware) Foo(ctx context.Context, s string) (rs string, err error) {
+func (l loggingMiddleware) CreateTeam(ctx context.Context, id string, name string) (res bool, err error) {
 	defer func() {
-		l.logger.Log("method", "Foo", "s", s, "rs", rs, "err", err)
+		l.logger.Log("method", "CreateTeam", "id", id, "name", name, "res", res, "err", err)
 	}()
-	return l.next.Foo(ctx, s)
+	return l.next.CreateTeam(ctx, id, name)
 }
-func (l loggingMiddleware) Bar(ctx context.Context, s string) (e0 error) {
+func (l loggingMiddleware) JoinTeam(ctx context.Context, teamId string, memberId string, deviceInfo string) (res bool, err error) {
 	defer func() {
-		l.logger.Log("method", "Bar", "s", s, "e0", e0)
+		l.logger.Log("method", "JoinTeam", "teamId", teamId, "memberId", memberId, "deviceInfo", deviceInfo, "res", res, "err", err)
 	}()
-	return l.next.Bar(ctx, s)
+	return l.next.JoinTeam(ctx, teamId, memberId, deviceInfo)
 }
-func (l loggingMiddleware) Wildfowl(ctx context.Context, s string) (rs string, err error) {
+
+func (l loggingMiddleware) SetPosition(ctx context.Context, data MemberData) (res bool, err error) {
 	defer func() {
-		l.logger.Log("method", "Wildfowl", "s", s, "rs", rs, "err", err)
+		l.logger.Log("method", "SetPosition", "data", data, "res", res, "err", err)
 	}()
-	return l.next.Wildfowl(ctx, s)
+	return l.next.SetPosition(ctx, data)
+}
+func (l loggingMiddleware) GetMatesPositions(ctx context.Context, memberId string) (res []MemberData, err error) {
+	defer func() {
+		l.logger.Log("method", "GetMatesPositions", "memberId", memberId, "res", res, "err", err)
+	}()
+	return l.next.GetMatesPositions(ctx, memberId)
 }

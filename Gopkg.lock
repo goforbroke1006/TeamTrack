@@ -194,7 +194,7 @@
   version = "v1.0.2"
 
 [[projects]]
-  digest = "1:a427dd5035907bf7ad9a1fa269805f3a9ead9cfab056b32e2d86c230e28e31c0"
+  digest = "1:ef06a435177b3b245740de74ea6e7116a3d43e5f21d5e84f3def995297a991a9"
   name = "github.com/openzipkin/zipkin-go-opentracing"
   packages = [
     ".",
@@ -205,8 +205,8 @@
     "wire",
   ]
   pruneopts = "UT"
-  revision = "26cf9707480e6b90e5eff22cf0bbf05319154232"
-  version = "v0.3.4"
+  revision = "4c9fbcbd6d73a644fd17214fe475296780c68fb5"
+  version = "v0.3.3"
 
 [[projects]]
   digest = "1:e39a5ee8fcbec487f8fc68863ef95f2b025e0739b0e4aa55558a2b4cf8f0ecf0"

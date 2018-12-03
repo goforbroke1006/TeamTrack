@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     volumes:
-      - .:/go/src/github.com/goforbroke1006
+      - .:/go/src/github.com/goforbroke1006/teamtrack
     container_name: teamtrack
     ports:
       - 8800:8081

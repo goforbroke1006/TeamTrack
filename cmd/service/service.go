@@ -9,6 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/goforbroke1006/teamtrack/pkg/entity"
+
 	endpoint1 "github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/metrics/prometheus"
@@ -91,6 +93,11 @@ func Run() {
 		os.Exit(1)
 	}
 	defer db.Close()
+	db.AutoMigrate(
+		entity.Team{},
+		entity.Member{},
+		entity.Location{},
+	)
 
 	svc := service.New(getServiceMiddleware(logger), db)
 	eps := endpoint.New(svc, getEndpointMiddleware(logger))

@@ -41,6 +41,7 @@ func New(middleware []Middleware, db *gorm.DB) TeamtrackService {
 
 func (b *basicTeamtrackService) CreateTeam(ctx context.Context, id string, name string) (res bool, err error) {
 	// TODO implement the business logic of CreateTeam
+	res = false
 	return res, err
 }
 func (b *basicTeamtrackService) JoinTeam(ctx context.Context, teamId string, memberId string, deviceInfo string) (res bool, err error) {

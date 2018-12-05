@@ -14,3 +14,6 @@ build: dep gen
 
 install:
 	cp ./out/${SERVICE_NAME} /usr/local/bin
+
+startd:
+	docker-compose up -d --build

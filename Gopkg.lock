@@ -116,12 +116,43 @@
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
 
 [[projects]]
+  digest = "1:7e63b12cdd7bef2c411d736cb67e28134d39f5d236aa1bfb8f3d55e3ad709eca"
+  name = "github.com/jinzhu/gorm"
+  packages = [
+    ".",
+    "dialects/postgres",
+  ]
+  pruneopts = "UT"
+  revision = "472c70caa40267cb89fd8facb07fe6454b578626"
+  version = "v1.9.2"
+
+[[projects]]
+  branch = "master"
+  digest = "1:fd97437fbb6b7dce04132cf06775bd258cce305c44add58eb55ca86c6c325160"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "04140366298a54a039076d798123ffa108fff46c"
+
+[[projects]]
   branch = "master"
   digest = "1:a64e323dc06b73892e5bb5d040ced475c4645d456038333883f58934abbf6f72"
   name = "github.com/kr/logfmt"
   packages = ["."]
   pruneopts = "UT"
   revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
+
+[[projects]]
+  digest = "1:b18ffc558326ebaed3b4a175617f1e12ed4e3f53d6ebfe5ba372a3de16d22278"
+  name = "github.com/lib/pq"
+  packages = [
+    ".",
+    "hstore",
+    "oid",
+  ]
+  pruneopts = "UT"
+  revision = "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:078d0b47a888546a9f8810d64f76792f70b2fa564ad2bbe6dddd002c032ce7cf"
@@ -387,6 +418,9 @@
     "github.com/go-kit/kit/metrics/prometheus",
     "github.com/go-kit/kit/tracing/opentracing",
     "github.com/go-kit/kit/transport/http",
+    "github.com/jinzhu/gorm",
+    "github.com/jinzhu/gorm/dialects/postgres",
+    "github.com/lib/pq",
     "github.com/lightstep/lightstep-tracer-go",
     "github.com/oklog/oklog/pkg/group",
     "github.com/opentracing/opentracing-go",

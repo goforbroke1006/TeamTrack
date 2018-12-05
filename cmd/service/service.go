@@ -85,7 +85,7 @@ func Run() {
 	}
 
 	db, err := gorm.Open("postgres",
-		"host=localhost port=5432 user=root dbname=teamtrack_db password=123456")
+		"host=db port=5432 user=root dbname=teamtrack_db password=123456 sslmode=disable")
 	if nil != err {
 		logger.Log("err", err)
 		os.Exit(1)

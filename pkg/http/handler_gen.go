@@ -11,8 +11,9 @@ import (
 // predefined paths.
 func NewHTTPHandler(endpoints endpoint.Endpoints, options map[string][]http.ServerOption) http1.Handler {
 	m := http1.NewServeMux()
-	makeFooHandler(m, endpoints, options["Foo"])
-	makeBarHandler(m, endpoints, options["Bar"])
-	makeWildfowlHandler(m, endpoints, options["Wildfowl"])
+	makeCreateTeamHandler(m, endpoints, options["CreateTeam"])
+	makeJoinTeamHandler(m, endpoints, options["JoinTeam"])
+	makeSetPositionHandler(m, endpoints, options["SetPosition"])
+	makeGetMatesPositionsHandler(m, endpoints, options["GetMatesPositions"])
 	return m
 }

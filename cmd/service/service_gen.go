@@ -21,22 +21,24 @@ func createService(endpoints endpoint.Endpoints) (g *group.Group) {
 }
 func defaultHttpOptions(logger log.Logger, tracer opentracinggo.Tracer) map[string][]http.ServerOption {
 	options := map[string][]http.ServerOption{
-		"Bar":      {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "Bar", logger))},
-		"Foo":      {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "Foo", logger))},
-		"Wildfowl": {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "Wildfowl", logger))},
+		"CreateTeam":        {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "CreateTeam", logger))},
+		"GetMatesPositions": {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "GetMatesPositions", logger))},
+		"JoinTeam":          {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "JoinTeam", logger))},
+		"SetPosition":       {http.ServerErrorEncoder(http1.ErrorEncoder), http.ServerErrorLogger(logger), http.ServerBefore(opentracing.HTTPToContext(tracer, "SetPosition", logger))},
 	}
 	return options
 }
 func addDefaultEndpointMiddleware(logger log.Logger, duration *prometheus.Summary, mw map[string][]endpoint1.Middleware) {
-	mw["Foo"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "Foo")), endpoint.InstrumentingMiddleware(duration.With("method", "Foo"))}
-	mw["Bar"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "Bar")), endpoint.InstrumentingMiddleware(duration.With("method", "Bar"))}
-	mw["Wildfowl"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "Wildfowl")), endpoint.InstrumentingMiddleware(duration.With("method", "Wildfowl"))}
+	mw["CreateTeam"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "CreateTeam")), endpoint.InstrumentingMiddleware(duration.With("method", "CreateTeam"))}
+	mw["JoinTeam"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "JoinTeam")), endpoint.InstrumentingMiddleware(duration.With("method", "JoinTeam"))}
+	mw["SetPosition"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "SetPosition")), endpoint.InstrumentingMiddleware(duration.With("method", "SetPosition"))}
+	mw["GetMatesPositions"] = []endpoint1.Middleware{endpoint.LoggingMiddleware(log.With(logger, "method", "GetMatesPositions")), endpoint.InstrumentingMiddleware(duration.With("method", "GetMatesPositions"))}
 }
 func addDefaultServiceMiddleware(logger log.Logger, mw []service.Middleware) []service.Middleware {
 	return append(mw, service.LoggingMiddleware(logger))
 }
 func addEndpointMiddlewareToAllMethods(mw map[string][]endpoint1.Middleware, m endpoint1.Middleware) {
-	methods := []string{"Foo", "Bar", "Wildfowl"}
+	methods := []string{"CreateTeam", "JoinTeam", "SetPosition", "GetMatesPositions"}
 	for _, v := range methods {
 		mw[v] = append(mw[v], m)
 	}

@@ -9,4 +9,4 @@
 
 ### How to run
 
-    make startd
+    make start

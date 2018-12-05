@@ -1,3 +1,12 @@
 .idea/
 vendor/
 out/
+
+# auto generated
+cmd/service/service_gen.go
+pkg/endpoint/endpoint.go
+pkg/endpoint/endpoint_gen.go
+pkg/endpoint/middleware.go
+pkg/http/handler.go
+pkg/http/handler_gen.go
+pkg/service/middleware.go

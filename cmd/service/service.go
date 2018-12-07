@@ -3,6 +3,7 @@ package service
 import (
 	"flag"
 	"fmt"
+	"github.com/goforbroke1006/teamtrack/pkg/config"
 	"net"
 	http1 "net/http"
 	"os"
@@ -47,6 +48,7 @@ var thriftFramed = fs.Bool("thrift-framed", false, "true to enable framing")
 var zipkinURL = fs.String("zipkin-url", "", "Enable Zipkin tracing via a collector URL e.g. http://localhost:9411/api/v1/spans")
 var lightstepToken = fs.String("lightstep-token", "", "Enable LightStep tracing via a LightStep access token")
 var appdashAddr = fs.String("appdash-addr", "", "Enable Appdash tracing via an Appdash server host:port")
+var configLocation = fs.String("config", nil, "Configuration location - json or yaml file")
 
 func Run() {
 	fs.Parse(os.Args[1:])
@@ -86,13 +88,27 @@ func Run() {
 		tracer = opentracinggo.GlobalTracer()
 	}
 
+	cfg, err := config.Read(*configLocation)
+	if nil != err {
+		logger.Log("err", err)
+		os.Exit(1)
+	}
+
 	db, err := gorm.Open("postgres",
-		"host=db port=5432 user=root dbname=teamtrack_db password=123456 sslmode=disable")
+		fmt.Sprint("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable",
+			cfg.Db.Host,
+			cfg.Db.Port,
+			cfg.Db.User,
+			cfg.Db.Name,
+			cfg.Db.Pass,
+		),
+	)
 	if nil != err {
 		logger.Log("err", err)
 		os.Exit(1)
 	}
 	defer db.Close()
+
 	db.AutoMigrate(
 		entity.Team{},
 		entity.Member{},

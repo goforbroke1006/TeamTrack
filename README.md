@@ -10,3 +10,12 @@
 ### How to run
 
     make start
+
+
+### Configuration
+
+    {
+      "db": {
+        "": "",
+      }
+    }

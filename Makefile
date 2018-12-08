@@ -34,4 +34,5 @@ install:
 	cp ./out/${SERVICE_NAME} /usr/local/bin
 
 start:
-	docker-compose up --build
+	#docker-compose up #--build
+	docker-compose up -d

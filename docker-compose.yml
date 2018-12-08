@@ -1,21 +1,29 @@
 version: "2"
 services:
-  teamtrack:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    restart: always
-    volumes:
-      - .:/go/src/github.com/goforbroke1006/teamtrack
-    container_name: teamtrack
-    ports:
-      - 8800:8081
-    depends_on:
-      - db
+#  app:
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+#    restart: always
+#    volumes:
+#      - .:/go/src/github.com/goforbroke1006/teamtrack
+#    ports:
+#      - 8800:8081
+#    depends_on:
+#      - db
+#      - consul
+#
+#  db:
+#    image: postgres:11.1
+#    environment:
+#      POSTGRES_DB: teamtrack_db
+#      POSTGRES_USER: root
+#      POSTGRES_PASSWORD: 123456
 
-  db:
-    image: postgres:11.1
-    environment:
-      POSTGRES_DB: teamtrack_db
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: 123456
+  consul:
+    build:
+      context: ./docker/consul/
+      dockerfile: ./Dockerfile
+    hostname: localhost
+    ports:
+      - 8500:8500

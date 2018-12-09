@@ -3,14 +3,12 @@ package service
 import (
 	"flag"
 	"fmt"
-	"github.com/goforbroke1006/teamtrack/pkg/config"
+	"github.com/jinzhu/gorm"
 	"net"
 	http1 "net/http"
 	"os"
 	"os/signal"
 	"syscall"
-
-	"github.com/goforbroke1006/teamtrack/pkg/entity"
 
 	endpoint1 "github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
@@ -18,7 +16,6 @@ import (
 	"github.com/goforbroke1006/teamtrack/pkg/endpoint"
 	"github.com/goforbroke1006/teamtrack/pkg/http"
 	"github.com/goforbroke1006/teamtrack/pkg/service"
-	"github.com/jinzhu/gorm"
 	lightsteptracergo "github.com/lightstep/lightstep-tracer-go"
 	"github.com/oklog/oklog/pkg/group"
 	opentracinggo "github.com/opentracing/opentracing-go"
@@ -27,6 +24,8 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"sourcegraph.com/sourcegraph/appdash"
 	"sourcegraph.com/sourcegraph/appdash/opentracing"
+
+	"github.com/goforbroke1006/teamtrack/pkg/entity"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/lib/pq"
@@ -48,6 +47,7 @@ var thriftFramed = fs.Bool("thrift-framed", false, "true to enable framing")
 var zipkinURL = fs.String("zipkin-url", "", "Enable Zipkin tracing via a collector URL e.g. http://localhost:9411/api/v1/spans")
 var lightstepToken = fs.String("lightstep-token", "", "Enable LightStep tracing via a LightStep access token")
 var appdashAddr = fs.String("appdash-addr", "", "Enable Appdash tracing via an Appdash server host:port")
+var consulAddr = fs.String("consul-addr", "localhost:8500", "Define consul's host:port")
 
 func Run() {
 	fs.Parse(os.Args[1:])
@@ -87,20 +87,26 @@ func Run() {
 		tracer = opentracinggo.GlobalTracer()
 	}
 
-	cfg, err := config.ReadFromConsul()
-	db, err := gorm.Open("postgres",
-		fmt.Sprint("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable"),
-		cfg.Db.Host,
-		cfg.Db.Port,
-		cfg.Db.User,
-		cfg.Db.Name,
-		cfg.Db.Pass,
+	//logger.Log("msg", *consulAddr)
+	//cfg, err := config.ReadFromConsul(*consulAddr)
+	//if nil != err {
+	//	logger.Log("err", err)
+	//	os.Exit(1)
+	//}
+	connectionStr := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",
+		os.Getenv("DB_HOST"),
+		os.Getenv("DB_PORT"),
+		os.Getenv("DB_NAME"),
+		os.Getenv("DB_USER"),
+		os.Getenv("DB_PASS"),
 	)
+	logger.Log("msg", connectionStr)
+	db, err := gorm.Open("postgres", connectionStr)
+	defer db.Close()
 	if nil != err {
 		logger.Log("err", err)
 		os.Exit(1)
 	}
-	defer db.Close()
 
 	db.AutoMigrate(
 		entity.Team{},

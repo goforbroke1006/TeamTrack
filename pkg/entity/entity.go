@@ -7,7 +7,7 @@ import (
 )
 
 type Team struct {
-	ID        string `gorm:"primary_key"`
+	ID        string `gorm:"primary_key;unique_index"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt *time.Time `sql:"index"`

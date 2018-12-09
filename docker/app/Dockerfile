@@ -23,4 +23,8 @@ RUN mkdir -p /go/src/${PROJECT_NAME}
 ADD ./ /go/src/${PROJECT_NAME}
 RUN cd /go/src/${PROJECT_NAME}/ && make dep gen
 
-ENTRYPOINT watcher -run "/go/src/${PROJECT_NAME}/cmd/" -watch ${PROJECT_NAME}
+ENV APP_ARGS ''
+
+ENTRYPOINT watcher -run "/go/src/${PROJECT_NAME}/cmd/" \
+    -watch ${PROJECT_NAME} \
+    ${APP_ARGS}

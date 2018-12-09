@@ -51,13 +51,29 @@ func (b *basicTeamtrackService) CreateTeam(ctx context.Context,
 		return false, errors.New("wrong time range")
 	}
 
-	team := entity.Team{ID: id, Name: name, ActiveFrom: from, ActiveTill: till}
+	var team entity.Team
+	b.db.Where("id = ?", id).First(&team)
+	if len(team.ID) > 0 {
+		err = errors.New("already exists")
+		return
+	}
+
+	team = entity.Team{ID: id, Name: name, ActiveFrom: from, ActiveTill: till}
 	b.db.Create(&team)
 	res = !b.db.NewRecord(team)
 	return res, err
 }
 func (b *basicTeamtrackService) JoinTeam(ctx context.Context, teamId string, memberId string, deviceInfo string) (res bool, err error) {
-	// TODO implement the business logic of JoinTeam
+	var member entity.Member
+
+	b.db.Where("nick = ?", memberId).First(&member)
+
+	member.Nick = memberId
+	//member.DeviceInfo = deviceInfo
+
+	b.db.Create(&member)
+	res = !b.db.NewRecord(member)
+
 	return res, err
 }
 func (b *basicTeamtrackService) SetPosition(ctx context.Context, info domain.MemberData) (res bool, err error) {

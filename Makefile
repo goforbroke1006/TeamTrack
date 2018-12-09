@@ -33,10 +33,11 @@ rebuild: kit-clear kit-gen dep gen build
 install:
 	cp ./out/${SERVICE_NAME} /usr/local/bin
 
-env-init:
-	#docker-compose build --no-cache app
-	docker-compose build --no-cache consul
+env-clear:
+	docker-compose down --remove-orphans --rmi=local
+
+#env-init:
+#	docker-compose build --no-cache app
 
 env-run:
-	#docker-compose up #--build
 	docker-compose up

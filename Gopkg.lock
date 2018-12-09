@@ -116,38 +116,6 @@
   revision = "2e65f85255dbc3072edf28d6b5b8efc472979f5a"
 
 [[projects]]
-  digest = "1:f17ce7a4351a831021a2793fbebd46d7f4593788c8c40aa2275bab880019c4ba"
-  name = "github.com/hashicorp/consul"
-  packages = ["api"]
-  pruneopts = "UT"
-  revision = "b79d951ced8c5f18fe73d35b2806f3435e40cd64"
-  version = "v0.9.0"
-
-[[projects]]
-  digest = "1:f47d6109c2034cb16bd62b220e18afd5aa9d5a1630fe5d937ad96a4fb7cbb277"
-  name = "github.com/hashicorp/go-cleanhttp"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "e8ab9daed8d1ddd2d3c4efba338fe2eeae2e4f18"
-  version = "v0.5.0"
-
-[[projects]]
-  branch = "master"
-  digest = "1:45aad874d3c7d5e8610427c81870fb54970b981692930ec2a319ce4cb89d7a00"
-  name = "github.com/hashicorp/go-rootcerts"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "6bb64b370b90e7ef1fa532be9e591a81c3493e00"
-
-[[projects]]
-  digest = "1:0dd7b7b01769f9df356dc99f9e4144bdbabf6c79041ea7c0892379c5737f3c44"
-  name = "github.com/hashicorp/serf"
-  packages = ["coordinate"]
-  pruneopts = "UT"
-  revision = "d6574a5bb1226678d7010325fb6c985db20ee458"
-  version = "v0.8.1"
-
-[[projects]]
   digest = "1:7e63b12cdd7bef2c411d736cb67e28134d39f5d236aa1bfb8f3d55e3ad709eca"
   name = "github.com/jinzhu/gorm"
   packages = [
@@ -173,14 +141,6 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "b84e30acd515aadc4b783ad4ff83aff3299bdfe0"
-
-[[projects]]
-  digest = "1:8b29456029e4da3ecc6e4fd12a1946cafba3b7090aac3f35fb26321d8bc2c0ec"
-  name = "github.com/l-vitaly/consul"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "031f4fbc496fa0d551c322cac65cc805ae9b1a72"
-  version = "v1.1.0"
 
 [[projects]]
   digest = "1:b18ffc558326ebaed3b4a175617f1e12ed4e3f53d6ebfe5ba372a3de16d22278"
@@ -210,20 +170,20 @@
   version = "v0.15.6"
 
 [[projects]]
+  digest = "1:4a49346ca45376a2bba679ca0e83bec949d780d4e927931317904bad482943ec"
+  name = "github.com/mattn/go-sqlite3"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c7c4067b79cc51e6dfdcef5c702e74b1e0fa7c75"
+  version = "v1.10.0"
+
+[[projects]]
   digest = "1:ff5ebae34cfbf047d505ee150de27e60570e8c394b3b8fdbb720ff6ac71985fc"
   name = "github.com/matttproud/golang_protobuf_extensions"
   packages = ["pbutil"]
   pruneopts = "UT"
   revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
   version = "v1.0.1"
-
-[[projects]]
-  digest = "1:78bbb1ba5b7c3f2ed0ea1eab57bdd3859aec7e177811563edc41198a760b06af"
-  name = "github.com/mitchellh/go-homedir"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "ae18d6b8b3205b561c79e8e5f69bff09736185f4"
-  version = "v1.0.0"
 
 [[projects]]
   digest = "1:acee8253461816d70e10eab8480a6d877dea4fad02493b884c05e982908ebe36"
@@ -458,14 +418,6 @@
   version = "v1.17.0"
 
 [[projects]]
-  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
-  name = "gopkg.in/yaml.v2"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
-  version = "v2.2.2"
-
-[[projects]]
   branch = "master"
   digest = "1:0b20dcbf3b256a57cf82d7b2b9db38f9c65789374b40903eb930dcddd3f461c1"
   name = "sourcegraph.com/sourcegraph/appdash"
@@ -487,19 +439,17 @@
     "github.com/go-kit/kit/metrics/prometheus",
     "github.com/go-kit/kit/tracing/opentracing",
     "github.com/go-kit/kit/transport/http",
-    "github.com/hashicorp/consul/api",
     "github.com/jinzhu/gorm",
     "github.com/jinzhu/gorm/dialects/postgres",
-    "github.com/l-vitaly/consul",
     "github.com/lib/pq",
     "github.com/lightstep/lightstep-tracer-go",
+    "github.com/mattn/go-sqlite3",
     "github.com/oklog/oklog/pkg/group",
     "github.com/opentracing/opentracing-go",
     "github.com/openzipkin/zipkin-go-opentracing",
     "github.com/pkg/errors",
     "github.com/prometheus/client_golang/prometheus",
     "github.com/prometheus/client_golang/prometheus/promhttp",
-    "gopkg.in/yaml.v2",
     "sourcegraph.com/sourcegraph/appdash",
     "sourcegraph.com/sourcegraph/appdash/opentracing",
   ]

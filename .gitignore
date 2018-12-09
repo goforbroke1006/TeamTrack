@@ -2,7 +2,7 @@
 vendor/
 out/
 
-.consul
+.env
 
 # auto generated
 cmd/service/service_gen.go

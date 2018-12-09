@@ -2,6 +2,8 @@
 vendor/
 out/
 
+.consul
+
 # auto generated
 cmd/service/service_gen.go
 pkg/endpoint/endpoint.go

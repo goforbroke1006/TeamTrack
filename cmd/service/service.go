@@ -3,6 +3,7 @@ package service
 import (
 	"flag"
 	"fmt"
+	"github.com/goforbroke1006/teamtrack/pkg/config"
 	"net"
 	http1 "net/http"
 	"os"
@@ -86,14 +87,14 @@ func Run() {
 		tracer = opentracinggo.GlobalTracer()
 	}
 
+	cfg, err := config.ReadFromConsul()
 	db, err := gorm.Open("postgres",
-		fmt.Sprint("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable"),//cfg.Db.Host,
-		//cfg.Db.Port,
-		//cfg.Db.User,
-		//cfg.Db.Name,
-		//cfg.Db.Pass,
-		//os.Getenv("DB_HOST")
-
+		fmt.Sprint("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable"),
+		cfg.Db.Host,
+		cfg.Db.Port,
+		cfg.Db.User,
+		cfg.Db.Name,
+		cfg.Db.Pass,
 	)
 	if nil != err {
 		logger.Log("err", err)

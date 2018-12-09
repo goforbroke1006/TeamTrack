@@ -28,5 +28,3 @@ services:
     ports:
       - 8500:8500
     restart: always
-    volumes:
-      - ${PWD}/.consul:/consul-initial/.consul

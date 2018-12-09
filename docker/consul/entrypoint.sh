@@ -13,16 +13,8 @@ done
 
 sleep 1
 
-#consul kv put teamtrack/db/host localhost
-#consul kv put teamtrack/db/port 5432
-#consul kv put teamtrack/db/name teamtrack_db
-#consul kv put teamtrack/db/user root
-#consul kv put teamtrack/db/pass 123456
-
-for file in /consul-initial/*; do
-    while IFS='' read -r line || [[ -n "$line" ]]; do
-        consul kv put "$line"
-    done < "$file"
-done
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    consul kv put "$line"
+done < "/consul-initial/.consul"
 
 tail -f /dev/null

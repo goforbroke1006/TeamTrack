@@ -1,0 +1,5 @@
+teamtrack/db/host db
+teamtrack/db/port 5432
+teamtrack/db/name teamtrack_db
+teamtrack/db/user root
+teamtrack/db/pass 123456

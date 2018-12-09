@@ -1,9 +1,8 @@
 FROM consul:1.1.0
 
-ADD ./entrypoint.sh /root
+ADD ./docker/consul/entrypoint.sh   /root
+ADD ./.consul                       /consul-initial
 
-RUN ls -lah /
-RUN ls -lah /root
+#VOLUME [ "/consul-initial/" ]
 
 ENTRYPOINT sh /root/entrypoint.sh
-#ENTRYPOINT tail -f /dev/null

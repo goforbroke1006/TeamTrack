@@ -1,7 +1,7 @@
 package domain
 
 type MemberData struct {
-	memberId string
-	lat      float32
-	lng      float32
+	MemberId string
+	Lat      float32
+	Lng      float32
 }

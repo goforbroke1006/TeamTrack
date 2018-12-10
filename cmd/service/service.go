@@ -87,12 +87,6 @@ func Run() {
 		tracer = opentracinggo.GlobalTracer()
 	}
 
-	//logger.Log("msg", *consulAddr)
-	//cfg, err := config.ReadFromConsul(*consulAddr)
-	//if nil != err {
-	//	logger.Log("err", err)
-	//	os.Exit(1)
-	//}
 	connectionStr := fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_PORT"),

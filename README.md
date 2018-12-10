@@ -9,13 +9,15 @@
 
 ### How to run
 
-    make start
+    make env-start
 
 
 ### Configuration
 
-    {
-      "db": {
-        "": "",
-      }
-    }
+#### Env vars
+
+* DB_HOST 
+* DB_PORT 
+* DB_NAME 
+* DB_USER 
+* DB_PASS
